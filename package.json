@@ -2,6 +2,7 @@
   "name": "combat-width-tool",
   "private": true,
   "version": "0.0.0",
+  "type": "module",
   "scripts": {
     "lint": "eslint . --cache --ext .js,.ts,.tsx,.jsx",
     "dev": "vite",
@@ -14,7 +15,11 @@
     "@mantine/form": "^5.0.3",
     "@mantine/hooks": "^5.0.3",
     "@vitejs/plugin-react": "^2.0.0",
+    "bluebird": "^3.7.2",
+    "chart.js": "^3.9.1",
+    "faker": "5.5.3",
     "react": "^18.2.0",
+    "react-chartjs-2": "^4.3.1",
     "react-dom": "^18.2.0",
     "styled-components": "^5.3.5",
     "vite": "^3.0.0"
@@ -45,6 +50,7 @@
     "eslint-plugin-unicorn": "^41.0.0",
     "jest": "^27.5.1",
     "prettier": "^2.6.2",
+    "ts-node": "=10.4.0",
     "typescript": "^4.6.4"
   }
 }

@@ -1,10 +1,16 @@
-import { Button, Slider } from "@mantine/core";
+import { Tabs, NativeSelect } from "@mantine/core";
 import React, { useState } from "react";
 
 import reactLogo from "./assets/react.svg";
+import { Chart, ChartPicker } from "./components";
+import { calculateSingleModifier, useModifierTableData } from "./engine";
 
 const App: React.FC = () => {
-  const [count, setCount] = useState(0);
+  const [flankingDirections, setFlankingDirections] = useState(1);
+
+  const [data, loading] = useModifierTableData({
+    flankingDirections,
+  });
 
   return (
     <div className="App">
@@ -18,23 +24,33 @@ const App: React.FC = () => {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <Button variant="light" onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </Button>
-        <Slider
-          marks={[
-            { value: 20, label: "20%" },
-            { value: 50, label: "50%" },
-            { value: 80, label: "80%" },
-          ]}
-        />
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+        {loading && <p>loading</p>}
+        {data && (
+          <div style={{ maxWidth: "75%" }}>
+            <Chart
+              labels={Array.from(Array(50).keys()).map((key) => key + 1)}
+              data={[
+                {
+                  label: "1 Flanking Direction",
+                  data,
+                  borderColor: "rgb(255, 99, 132)",
+                  backgroundColor: "rgba(255, 99, 132, 0.5)",
+                },
+              ]}
+            />
+          </div>
+        )}
+        <NativeSelect
+          label="Flanking Directions"
+          data={["1", "2", "3"]}
+          value={flankingDirections}
+          onChange={(event) =>
+            setFlankingDirections(parseInt(event.currentTarget.value))
+          }
+        ></NativeSelect>
+
+        <ChartPicker />
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </div>
   );
 };
